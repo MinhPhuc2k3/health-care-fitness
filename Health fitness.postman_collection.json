@@ -1,0 +1,530 @@
+{
+	"info": {
+		"_postman_id": "ee529063-0a36-439b-acab-ccc59cdcff54",
+		"name": "Health fitness",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34860077"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"protocolProfileBehavior": {
+				"maxRedirects": 1
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"minhphuc@example.com\",\r\n  \"password\": \"99999\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Hoang Quoc Anh\",\r\n  \"email\": \"quocanh@example.com\",\r\n  \"username\": \"qa12\",\r\n  \"password\": \"1223456\",\r\n  \"birthDay\": \"2000-10-25\",\r\n  \"age\": 25,\r\n  \"gender\": \"male\",\r\n  \"activityLevel\": \"moderate\",\r\n  \"goal\": \"muscle_gain\",\r\n  \"isPremium\": false,\r\n  \"roles\": [{\"id\": 1}]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/auth/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJlbWFpbCI6Im1pbmhwaHVjQGV4YW1wbGUuY29tIiwic3ViIjoicWExMSIsImlhdCI6MTc2MTkyNzIwNCwiZXhwIjoxNzYxOTM0NDA0fQ.pvLR4zw9bb2wCYEFD7nptdJNVCmFqiM6a9HfTmydqfBaju2chIND2jFYayu-1Dyc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"99999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/auth/change-password",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"change-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserInfo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJlbWFpbCI6Im1pbmhwaHVjQGV4YW1wbGUuY29tIiwic3ViIjoicWExMSIsImlhdCI6MTc2MjUzNTY3MywiZXhwIjoxNzYyNTQyODczfQ.Mf-z04Un9hzQKWOP_p_jwf2Ry-V6GlF7V2NJYymKCj7ctpR2_1s85F-gscl5KX1m",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get recipes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJlbWFpbCI6Im1pbmhwaHVjQGV4YW1wbGUuY29tIiwic3ViIjoicWExMSIsImlhdCI6MTc2MTg0MTU3MSwiZXhwIjoxNzYxODQ4NzcxfQ.NmF6W4dGC8a1oQ2AUKmjv5MmlliX9FYUq4L-3j3ILqVz6hESjbh8tQMjIksX75fd",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/recipe?page=2&size=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"recipe"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Recipe",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJlbWFpbCI6Im1pbmhwaHVjQGV4YW1wbGUuY29tIiwic3ViIjoicWExMSIsImlhdCI6MTc2MjAxMjk0MiwiZXhwIjoxNzYyMDIwMTQyfQ.QniRfs7zAU1EbLb9PwIxsW4TwJzqwnB6UWV7gjGall2j6Do9yzAdoDlBJGasZTzQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Thịt kho tàu",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Món thịt ba chỉ kho với trứng vịt, nước dừa và nước mắm, hương vị đậm đà truyền thống Việt Nam.",
+							"type": "text"
+						},
+						{
+							"key": "calories",
+							"value": "550.0",
+							"type": "text"
+						},
+						{
+							"key": "protein",
+							"value": "28.0",
+							"type": "text"
+						},
+						{
+							"key": "carbs",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "fat",
+							"value": "45",
+							"type": "text"
+						},
+						{
+							"key": "mealType",
+							"value": "DINNER",
+							"type": "text"
+						},
+						{
+							"key": "imageFile",
+							"type": "file",
+							"src": "postman-cloud:///1f0b68cc-01d5-45b0-b097-1e35f946eb65"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/recipe",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login 2",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"qa12\",\r\n    \"password\": \"1223456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Meal",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJlbWFpbCI6Im1pbmhwaHVjQGV4YW1wbGUuY29tIiwic3ViIjoicWExMSIsImlhdCI6MTc2MTg0MDg2NiwiZXhwIjoxNzYxODQ4MDY2fQ.bFEcJEq00euZ77ZfxIdRvf5ggEfRDLdpDCyWtCPaDRwFoiOgX522RgND4IUkkha-",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"mealTime\": \"DINNER\",\r\n  \"mealDate\": \"2025-10-30\",\r\n  \"recipes\": [\r\n    { \"id\": 26 },\r\n    { \"id\": 27 },\r\n    { \"id\": 28 },\r\n    { \"id\": 29 },\r\n    { \"id\": 30 },\r\n    { \"id\": 31 }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/meal",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"meal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Meal",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJlbWFpbCI6Im1pbmhwaHVjQGV4YW1wbGUuY29tIiwic3ViIjoicWExMSIsImlhdCI6MTc2MTkyOTEwNiwiZXhwIjoxNzYxOTM2MzA2fQ.irF7YYkWKXdvyWWFobgCDsRWfBQ-n302-bCUgoEvB12IKf7bBjW_pW-zG9U2a2OO",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/meal",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"meal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJlbWFpbCI6InF1b2NhbmhAZXhhbXBsZS5jb20iLCJzdWIiOiJxYTEyIiwiaWF0IjoxNzYxODQyMjM4LCJleHAiOjE3NjE4NDk0Mzh9.i02aGhqENU5jKUpHtV8ip4xt36y9ix87TBsCGipvyuIf7L4pPM6R530ufl9WPTCb",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/meal/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"meal",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Meal",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJlbWFpbCI6Im1pbmhwaHVjQGV4YW1wbGUuY29tIiwic3ViIjoicWExMSIsImlhdCI6MTc2MTg0MzMyMywiZXhwIjoxNzYxODUwNTIzfQ.YDoY1W_C0y6RQowEln12RmeYHbO3ZBob_dRUkoWVzjWLGnHdtR8ItXmCxu1kwdxH",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"mealTime\": \"BREAKFAST\",\r\n  \"mealDate\": \"2025-10-30\",\r\n  \"recipes\": [\r\n    { \"id\": 26 },\r\n    { \"id\": 27 },\r\n    { \"id\": 28 },\r\n    { \"id\": 29 },\r\n    { \"id\": 30 },\r\n    { \"id\": 31 }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/meal/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"meal",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create HealthInfo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJlbWFpbCI6Im1pbmhwaHVjQGV4YW1wbGUuY29tIiwic3ViIjoicWExMSIsImlhdCI6MTc2MTk4ODE0NSwiZXhwIjoxNzYxOTk1MzQ1fQ.uFAZrgOCsPgoZqxEmzF2B5oQPaYvaeyX9V24HZIujvspGu0pWgS8XtQ-t5sMDo1P",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"height\" :\"162\",\r\n  \"weight\": \"55\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/health-info",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"health-info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetHealthInfo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJlbWFpbCI6Im1pbmhwaHVjQGV4YW1wbGUuY29tIiwic3ViIjoicWExMSIsImlhdCI6MTc2MjUzNTY3MywiZXhwIjoxNzYyNTQyODczfQ.Mf-z04Un9hzQKWOP_p_jwf2Ry-V6GlF7V2NJYymKCj7ctpR2_1s85F-gscl5KX1m",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/health-info/all?page=0&size=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"health-info",
+						"all"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
