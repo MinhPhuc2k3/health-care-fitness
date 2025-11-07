@@ -6,6 +6,7 @@ import com.health_fitness.model.user.User;
 import com.health_fitness.repository.RecipeRepository;
 import com.health_fitness.config.security.CustomUserDetails;
 import com.health_fitness.utils.ImageUtils;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Transactional
 public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final ImageUtils imageUtils;

@@ -1,5 +1,6 @@
 package com.health_fitness.config.security;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,7 +35,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String username = null;
         if(authHeader != null && authHeader.startsWith("Bearer")){
             token = authHeader.substring(7);
-            username = jwtService.extractUsername(token);
+            try {
+                username = jwtService.extractUsername(token);
+            } catch (ExpiredJwtException ex){
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType("application/json");
+                response.getWriter().write("{\"error\": \"Login session is expired\", \"message\": \"" + ex.getMessage() + "\"}");
+                return;
+            }
         }
 
         if(username!=null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -53,6 +61,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.setContentType("application/json");
                 response.getWriter().write("{\"error\": \"User not found\", \"message\": \"" + ex.getMessage() + "\"}");
+                return;
             }
         }
         filterChain.doFilter(request, response);

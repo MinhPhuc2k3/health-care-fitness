@@ -6,16 +6,17 @@ import com.health_fitness.exception.NotFoundException;
 import com.health_fitness.model.user.HealthInfo;
 import com.health_fitness.model.user.User;
 import com.health_fitness.repository.HealthInfoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
+@Transactional
 public class HealthInfoService {
 
     private final HealthInfoRepository healthInfoRepository;
@@ -50,8 +51,8 @@ public class HealthInfoService {
         healthInfo.setUser(user);
         healthInfo.setBmi(bmi);
         healthInfo.setTdee(tdee);
-        healthInfo.setCreatedDate(LocalDate.now());
-        healthInfo.setUpdatedDate(LocalDate.now());
+        healthInfo.setCreatedDate(LocalDateTime.now());
+        healthInfo.setUpdatedDate(LocalDateTime.now());
 
         return healthInfoRepository.save(healthInfo);
     }

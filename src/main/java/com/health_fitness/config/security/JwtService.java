@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.expression.ExpressionException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -41,16 +42,8 @@ public class JwtService {
                 .compact();
     }
 
-    public String extractUsername(String token) {
+    public String extractUsername(String token) throws ExpressionException {
         return extractClaim(token, Claims::getSubject);
-    }
-
-    public Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
-
-    public String extractEmail(String token){
-        return (String) extractClaim(token, (c -> c.get("email")));
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
@@ -58,7 +51,7 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) {
+    private Claims extractAllClaims(String token) throws ExpressionException {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignKey())
                 .build()
@@ -66,12 +59,17 @@ public class JwtService {
                 .getBody();
     }
 
-    private Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+    public void renewToken(String token){
+        Claims claims = extractAllClaims(token);
+        claims.setExpiration(new Date(System.currentTimeMillis()+3600000*2));
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public Boolean validateToken(String token, UserDetails userDetails) throws ExpressionException{
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        if(username.equals(userDetails.getUsername())){
+            renewToken(token);
+            return true;
+        }
+        return false;
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "health_info")
@@ -26,6 +27,6 @@ public class HealthInfo {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private LocalDate createdDate;
-    private LocalDate updatedDate;
+    private LocalDateTime createdDate;
+    private LocalDateTime updatedDate;
 }

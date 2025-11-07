@@ -8,6 +8,7 @@ import com.health_fitness.model.recipe.meal.Recipe;
 import com.health_fitness.repository.MealRepository;
 import com.health_fitness.repository.RecipeRepository;
 import com.health_fitness.config.security.CustomUserDetails;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class MealService {
 
     private final MealRepository mealRepository;

@@ -1,13 +1,14 @@
 package com.health_fitness.services;
 
 
-import com.health_fitness.exception.AuthException;
 import com.health_fitness.config.security.CustomUserDetails;
 import com.health_fitness.config.security.CustomUserDetailsService;
 import com.health_fitness.config.security.JwtService;
+import com.health_fitness.exception.AuthException;
 import com.health_fitness.model.user.User;
 import com.health_fitness.repository.UserRepository;
 import jakarta.annotation.security.PermitAll;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +18,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
+@Transactional
 public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -40,6 +44,7 @@ public class UserService {
         if(userRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail()).isPresent()){
             throw new AuthException("Username is existed");
         };
+        user.setJoinDate(LocalDateTime.now());
         return userRepository.save(user);
     }
 
@@ -59,6 +64,13 @@ public class UserService {
         user = customUserDetails.getUser();
         String token = jwtService.generateToken(user.getUsername(), user.getEmail());
         user.setToken(token);
-        return  user;
+        user.setLastLogin(LocalDateTime.now());
+        return userRepository.save(user);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    public User getUser() {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getUser();
     }
 }
