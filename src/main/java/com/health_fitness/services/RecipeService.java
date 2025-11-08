@@ -85,7 +85,7 @@ public class RecipeService {
         return recipeRepository.save(existingRecipe);
     }
 
-    @PreAuthorize("#id == principal.user.id")
+    @PreAuthorize("isAuthenticated()")
     public void deleteRecipe(Long id) {
         CustomUserDetails userDetails =
                 (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -101,7 +101,11 @@ public class RecipeService {
         if (!recipe.getCreatedBy().getId().equals(currentUser.getId()) && !isAdmin) {
             throw new SecurityException("Bạn không có quyền xóa công thức này");
         }
-
-        recipeRepository.delete(recipe);
+        try {
+            imageUtils.deleteImage(recipe.getImageId());
+            this.recipeRepository.delete(recipe);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

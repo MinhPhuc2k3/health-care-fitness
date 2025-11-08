@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
@@ -29,7 +30,7 @@ public class Recipe {
     private LocalDate lastUpdate;
     private String imageId;
     @Enumerated(EnumType.STRING)
-    private MealType mealType;
+    private List<MealType> mealType;
 
     @JsonIgnore
     @ManyToOne
