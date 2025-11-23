@@ -6,7 +6,10 @@ spring:
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
-
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 55MB
   jpa:
     hibernate:
       ddl-auto: update
@@ -14,6 +17,17 @@ spring:
     properties:
       hibernate:
         format_sql: true
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    defaultModelsExpandDepth: 1
+    defaultModelExpandDepth: 1
+    displayRequestDuration: true
+    showExtensions: true
+
 server:
   port: 8000
 secret:

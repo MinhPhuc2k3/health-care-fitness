@@ -1,6 +1,6 @@
 package com.health_fitness.controllers;
 import com.health_fitness.model.user.User;
-import com.health_fitness.services.UserService;
+import com.health_fitness.services.user.UserService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

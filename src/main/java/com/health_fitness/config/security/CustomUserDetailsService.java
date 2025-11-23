@@ -1,11 +1,13 @@
 package com.health_fitness.config.security;
 
 import com.health_fitness.model.user.User;
-import com.health_fitness.repository.UserRepository;
+import com.health_fitness.repository.user.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class CustomUserDetailsService implements UserDetailsService{
 
     private final UserRepository userRepository;

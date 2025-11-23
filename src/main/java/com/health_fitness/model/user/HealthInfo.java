@@ -2,6 +2,8 @@ package com.health_fitness.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,10 +19,16 @@ public class HealthInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Positive
     private Float height;
+
+    @NotNull
+    @Positive
     private Float weight;
     private Float bmi;
-    private Float tdee;
+    private Float bmr;
+    private Float fatPercentage;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

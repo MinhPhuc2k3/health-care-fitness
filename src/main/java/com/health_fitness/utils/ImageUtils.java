@@ -49,6 +49,12 @@ public class ImageUtils {
                         .width(800).height(600)
                         .crop("fill").quality("auto:good");
             }
+            case INGREDIENT -> {
+                folder = "ingredient";
+                yield new Transformation<>()
+                        .width(800).height(600)
+                        .crop("fill").quality("auto:good");
+            }
             default -> {
                 folder = "others";
                 yield new Transformation<>()
@@ -65,6 +71,6 @@ public class ImageUtils {
     }
 
     public static enum ImageType{
-        AVATAR, RECIPE, MEAL
+        AVATAR, RECIPE, MEAL, INGREDIENT, EXERCISE
     }
 }
