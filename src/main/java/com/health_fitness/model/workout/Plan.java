@@ -2,7 +2,7 @@ package com.health_fitness.model.workout;
 
 
 import com.fasterxml.jackson.annotation.*;
-import com.health_fitness.model.meal.MenuPlan;
+import com.health_fitness.model.nutrition.MenuPlan;
 import com.health_fitness.model.user.Goal;
 import lombok.*;
 import jakarta.persistence.*;
@@ -41,10 +41,5 @@ public class Plan {
     @Builder.Default
     @JsonManagedReference
     private List<PlanSession> planSessions = new ArrayList<>();
-
-    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
-    @JsonManagedReference
-    private List<MenuPlan> menuPlans = new ArrayList<>();
 
 }

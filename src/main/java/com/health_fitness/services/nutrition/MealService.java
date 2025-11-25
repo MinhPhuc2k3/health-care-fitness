@@ -1,7 +1,7 @@
 package com.health_fitness.services.nutrition;
 
 import com.health_fitness.exception.NotFoundException;
-import com.health_fitness.model.meal.Meal;
+import com.health_fitness.model.nutrition.Meal;
 import com.health_fitness.repository.nutrition.MealRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

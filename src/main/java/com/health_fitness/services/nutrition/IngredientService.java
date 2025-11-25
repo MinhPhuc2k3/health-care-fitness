@@ -1,7 +1,7 @@
 package com.health_fitness.services.nutrition;
 
 import com.health_fitness.exception.NotFoundException;
-import com.health_fitness.model.meal.Ingredient;
+import com.health_fitness.model.nutrition.Ingredient;
 import com.health_fitness.repository.nutrition.IngredientRepository;
 import com.health_fitness.utils.ImageUtils;
 import com.health_fitness.utils.ImageUtils.ImageType;

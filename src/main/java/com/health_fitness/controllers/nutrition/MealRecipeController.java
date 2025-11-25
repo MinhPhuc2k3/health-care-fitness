@@ -1,8 +1,6 @@
 package com.health_fitness.controllers.nutrition;
 
-import com.health_fitness.model.meal.Meal;
-import com.health_fitness.model.meal.MealRecipe;
-import com.health_fitness.model.meal.Recipe;
+import com.health_fitness.model.nutrition.MealRecipe;
 import com.health_fitness.services.nutrition.MealRecipeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

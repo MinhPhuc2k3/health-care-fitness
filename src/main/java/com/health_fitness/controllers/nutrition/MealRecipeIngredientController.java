@@ -1,6 +1,6 @@
 package com.health_fitness.controllers.nutrition;
 
-import com.health_fitness.model.meal.MealRecipeIngredient;
+import com.health_fitness.model.nutrition.MealRecipeIngredient;
 import com.health_fitness.services.nutrition.MealRecipeIngredientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

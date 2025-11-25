@@ -1,7 +1,7 @@
-package com.health_fitness.model.meal;
+package com.health_fitness.model.nutrition;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.health_fitness.model.user.UserPlan;
 import com.health_fitness.model.workout.Plan;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -25,11 +25,11 @@ public class MenuPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "Plan is required")
+    @NotNull(message = "user plan is required")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "plan_id", nullable = false)
+    @JoinColumn(name = "user_plan_id", nullable = false)
     @JsonBackReference
-    private Plan plan;
+    private UserPlan userPlan;
 
     @NotNull
     @Column(nullable = false)

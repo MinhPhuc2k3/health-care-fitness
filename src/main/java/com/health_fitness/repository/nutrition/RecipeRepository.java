@@ -1,6 +1,6 @@
 package com.health_fitness.repository.nutrition;
 
-import com.health_fitness.model.meal.Recipe;
+import com.health_fitness.model.nutrition.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

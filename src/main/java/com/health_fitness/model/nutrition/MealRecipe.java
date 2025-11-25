@@ -1,4 +1,4 @@
-package com.health_fitness.model.meal;
+package com.health_fitness.model.nutrition;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;

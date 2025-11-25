@@ -1,9 +1,9 @@
 package com.health_fitness.services.nutrition;
 
 import com.health_fitness.exception.NotFoundException;
-import com.health_fitness.model.meal.Meal;
-import com.health_fitness.model.meal.MealRecipe;
-import com.health_fitness.model.meal.Recipe;
+import com.health_fitness.model.nutrition.Meal;
+import com.health_fitness.model.nutrition.MealRecipe;
+import com.health_fitness.model.nutrition.Recipe;
 import com.health_fitness.repository.nutrition.MealRecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;

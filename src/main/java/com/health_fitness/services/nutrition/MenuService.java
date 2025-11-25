@@ -1,8 +1,8 @@
 package com.health_fitness.services.nutrition;
 
 import com.health_fitness.exception.NotFoundException;
-import com.health_fitness.model.meal.Menu;
-import com.health_fitness.model.meal.MenuPlan;
+import com.health_fitness.model.nutrition.Menu;
+import com.health_fitness.model.nutrition.MenuPlan;
 import com.health_fitness.repository.nutrition.MenuRepository;
 import com.health_fitness.services.user.UserService;
 import jakarta.transaction.Transactional;

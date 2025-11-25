@@ -1,10 +1,9 @@
-package com.health_fitness.model.meal;
+package com.health_fitness.model.nutrition;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.health_fitness.model.user.Auditable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
