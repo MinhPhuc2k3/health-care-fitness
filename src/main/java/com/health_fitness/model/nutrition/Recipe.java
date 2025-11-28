@@ -1,6 +1,8 @@
 package com.health_fitness.model.nutrition;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.health_fitness.model.user.Auditable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -64,6 +66,7 @@ public class Recipe extends Auditable {
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
+    @JsonManagedReference
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
     public enum RecipeType {

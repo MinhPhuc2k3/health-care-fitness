@@ -20,13 +20,13 @@ public class MealRecipeIngredientService {
     private final MealRecipeIngredientRepository mealRecipeIngredientRepository;
 
     @PreAuthorize("isAuthenticated()")
-    public void createMealRecipeIngredient(MealRecipe mealRecipe, Ingredient ingredient, float quantity) {
+    public MealRecipeIngredient createMealRecipeIngredient(MealRecipe mealRecipe, Ingredient ingredient, float quantity) {
         MealRecipeIngredient mealRecipeIngredient = MealRecipeIngredient.builder()
                 .ingredient(ingredient)
                 .mealRecipe(mealRecipe)
                 .quantity(quantity)
                 .build();
-        mealRecipeIngredientRepository.save(mealRecipeIngredient);
+        return mealRecipeIngredientRepository.save(mealRecipeIngredient);
     }
 
     @PreAuthorize("isAuthenticated()")

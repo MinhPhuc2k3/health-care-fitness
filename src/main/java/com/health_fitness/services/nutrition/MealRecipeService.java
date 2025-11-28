@@ -44,7 +44,7 @@ public class MealRecipeService {
         meal.getMenu().addTotalProtein(recipe.getProtein());
         MealRecipe savedMealRecipe = mealRecipeRepository.save(mealRecipe);
         savedMealRecipe.getRecipe().getRecipeIngredients().forEach((recipeIngredient)->{
-            mealRecipeIngredientService.createMealRecipeIngredient(mealRecipe, recipeIngredient.getIngredient(), recipeIngredient.getQuantity());
+            mealRecipe.getMealRecipeIngredients().add(mealRecipeIngredientService.createMealRecipeIngredient(mealRecipe, recipeIngredient.getIngredient(), recipeIngredient.getQuantity()));
         });
         return savedMealRecipe;
     }
