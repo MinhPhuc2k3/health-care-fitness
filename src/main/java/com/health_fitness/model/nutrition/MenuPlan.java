@@ -51,8 +51,4 @@ public class MenuPlan {
     @Column
     private Float targetFat;
 
-    @OneToMany(mappedBy = "menuPlan", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
-    private List<Menu> menus = new ArrayList<>();
-
 }

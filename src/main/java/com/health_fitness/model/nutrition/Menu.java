@@ -23,9 +23,8 @@ public class Menu extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_plan_id")
-    @JsonBackReference
     private MenuPlan menuPlan;
 
     @Column(columnDefinition = "TEXT")
