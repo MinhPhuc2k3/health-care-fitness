@@ -62,8 +62,10 @@ public class RecipeService {
                 .orElseThrow(() -> new NotFoundException("Recipe not found"));
     }
     @PreAuthorize("isAuthenticated()")
-    public Page<Recipe> getAllRecipes(Pageable pageable) {
-        return recipeRepo.findAll(pageable);
+    public Page<Recipe> getAllRecipes(String name, Pageable pageable) {
+        if(name==null) {
+            return recipeRepo.findAll(pageable);
+        }else return recipeRepo.findRecipeByName(name, pageable);
     }
     @PreAuthorize("isAuthenticated()")
     public void deleteRecipe(int id) throws IOException {

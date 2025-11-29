@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/recipes")
@@ -39,8 +40,8 @@ class RecipeController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Recipe>> getAllRecipes(Pageable pageable) {
-        Page<Recipe> recipes = recipeService.getAllRecipes(pageable);
+    public ResponseEntity<Page<Recipe>> getAllRecipes(@RequestParam(required = false) String name, Pageable pageable) {
+        Page<Recipe> recipes = recipeService.getAllRecipes(name, pageable);
         return ResponseEntity.ok(recipes);
     }
 

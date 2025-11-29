@@ -33,6 +33,7 @@ public class MenuService {
     public Menu createMenu(MenuPlan menuPlan){
         Menu menu = Menu.builder()
                 .menuPlan(menuPlan)
+                .status(Menu.MenuStatus.IN_PROGRESS)
                 .build();
         return menuRepository.save(menu);
     }
