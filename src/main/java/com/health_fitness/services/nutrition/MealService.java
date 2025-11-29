@@ -38,7 +38,7 @@ public class MealService {
     @PreAuthorize("isAuthenticated()")
     public Meal updateMeal(int mealId, Meal meal){
         Meal mealToSave = getMeal(mealId);
-        BeanUtils.copyProperties(meal, mealToSave, "id", "menu");
+        BeanUtils.copyProperties(meal, mealToSave, "id", "menu", "mealRecipe");
         return mealRepository.save(mealToSave);
     }
 }
