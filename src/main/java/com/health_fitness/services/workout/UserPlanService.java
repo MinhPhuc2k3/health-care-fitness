@@ -64,7 +64,7 @@ public class UserPlanService {
             DayOfWeek currentDay = DayOfWeek.of(i);
             MenuPlan menuPlan = null;
             PlanSession planSession = planSessionMap.get(currentDay);
-            float tdee = bmr + ((planSession != null)? planSession.getTargetCalories():0F);
+            float tdee = bmr*1.25f + ((planSession != null)? planSession.getTargetCalories():0F);
             float proteinGrams = healthInfo.getWeight() * 2.2F;
             float proteinCalories = proteinGrams * 4;
             switch (plan.getGoal().getName()) {
@@ -89,16 +89,15 @@ public class UserPlanService {
                                 .build();
                     } else {
                         // Rest day: Lower calories, higher fat, lower carbs
-                        float restDayCalories = targetEatCalories * 0.8F;
                         float fatPercentage = 0.35F;
-                        float fatCalories = restDayCalories * fatPercentage;
+                        float fatCalories = targetEatCalories * fatPercentage;
                         float fatGrams = fatCalories / 9;
-                        float carbCalories = restDayCalories - proteinCalories - fatCalories;
+                        float carbCalories = targetEatCalories - proteinCalories - fatCalories;
                         float carbGrams = carbCalories / 4;
 
                         menuPlan = MenuPlan.builder()
                                 .dayOfWeek(currentDay)
-                                .targetCalories(restDayCalories)
+                                .targetCalories(targetEatCalories)
                                 .targetProtein(proteinGrams)
                                 .targetFat(fatGrams)
                                 .targetCarb(carbGrams)
@@ -126,18 +125,16 @@ public class UserPlanService {
                                 .build();
                     } else {
                         // Rest day: Lower calories, higher fat
-                        float restDayCalories = targetCalories * 0.8F;
-
                         float fatPercentage = 0.35F; // 35% fat on rest days
-                        float fatCalories = restDayCalories * fatPercentage;
+                        float fatCalories = targetCalories * fatPercentage;
                         float fatGrams = fatCalories / 9;
 
-                        float carbCalories = restDayCalories - proteinCalories - fatCalories;
+                        float carbCalories = targetCalories - proteinCalories - fatCalories;
                         float carbGrams = carbCalories / 4;
 
                         menuPlan = MenuPlan.builder()
                                 .dayOfWeek(currentDay)
-                                .targetCalories(restDayCalories)
+                                .targetCalories(targetCalories)
                                 .targetProtein(proteinGrams)
                                 .targetFat(fatGrams)
                                 .targetCarb(carbGrams)
@@ -187,14 +184,5 @@ public class UserPlanService {
             }
             if(menuPlan!=null) userPlan.getMenuPlans().add(menuPlan);
         }
-        plan.getPlanSessions().forEach(
-                planSession -> {
-
-
-
-
-
-                }
-        );
     }
 }
