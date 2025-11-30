@@ -24,16 +24,16 @@ public class MealRecipe {
 
     @NotNull(message = "Recipe is required")
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "recipe_id", nullable = false)
+    @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
     @NotNull(message = "Meal is required")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "meal_id", nullable = false)
+    @JoinColumn(name = "meal_id")
     @JsonBackReference
     private Meal meal;
 
-    @OneToMany(mappedBy = "mealRecipe", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "mealRecipe", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @JsonManagedReference
     private List<MealRecipeIngredient> mealRecipeIngredients = new ArrayList<>();
