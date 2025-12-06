@@ -2,12 +2,15 @@ package com.health_fitness.services.workout;
 
 import com.health_fitness.exception.NotFoundException;
 import com.health_fitness.model.workout.Exercise;
+import com.health_fitness.model.workout.MuscleGroup;
 import com.health_fitness.repository.workout.ExerciseRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -23,7 +26,7 @@ public class ExerciseService {
         return exerciseRepository.findAll(pageable);
     }
 
-    public Page<Exercise> getListExerciseByCategoryMuscleGroup(Exercise.ExerciseCategory category, Exercise.MuscleGroup muscleGroup, Pageable pageable) {
+    public Page<Exercise> getListExerciseByCategoryMuscleGroup(Exercise.ExerciseCategory category, List<MuscleGroup> muscleGroup, Pageable pageable) {
         if(category==null && muscleGroup==null){
             return getAllExercise(pageable);
         }

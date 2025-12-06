@@ -23,7 +23,7 @@ public class Menu extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "menu_plan_id")
     private MenuPlan menuPlan;
 

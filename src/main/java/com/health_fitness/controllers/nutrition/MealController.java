@@ -39,4 +39,10 @@ class MealController {
         mealService.deleteMeal(mealId);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping()
+    public ResponseEntity<Meal> addMeal(@RequestBody Meal meal) {
+        Meal savedMeal = mealService.addMeal(meal);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedMeal);
+    }
 }

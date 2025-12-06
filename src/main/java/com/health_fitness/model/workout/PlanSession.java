@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.DayOfWeek;
+import java.util.List;
 
 @Entity
 @Table(name = "plan_sessions")
@@ -37,15 +38,11 @@ public class PlanSession {
     @Column(nullable = false)
     private Exercise.ExerciseCategory category;
 
-    @Enumerated(EnumType.STRING)
     @Column
-    private Exercise.MuscleGroup muscleGroup;
+    @OneToMany
+    private List<MuscleGroup> muscleGroups;
 
     public enum ExerciseCategory {
         CARDIO, STRENGTH
-    }
-
-    public enum MuscleGroup {
-        SHOULDER
     }
 }
