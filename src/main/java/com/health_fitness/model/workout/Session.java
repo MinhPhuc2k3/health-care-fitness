@@ -1,6 +1,7 @@
 package com.health_fitness.model.workout;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.health_fitness.model.user.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Session {
+public class Session extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,16 +26,19 @@ public class Session {
     private PlanSession planSession;
 
     @Column
-    private Integer actualDurationMinutes;
+    private Float estimatedCalories = 0F;
 
     @Column
-    private Float actualCaloriesBurned;
+    private Float actualDurationMinutes = 0F;
+
+    @Column
+    private Float actualCaloriesBurned = 0F;
 
     @Column(columnDefinition = "TEXT")
-    private String notes;
+    private String notes = "";
 
     @Enumerated
-    @Column(nullable = false)
+    @Column
     private SessionStatus status;
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -46,5 +50,9 @@ public class Session {
 
     public enum SessionStatus{
         DONE, IN_PROGRESS
+    }
+
+    public void addEstimatedCalories(float delta){
+        this.estimatedCalories += delta;
     }
 }

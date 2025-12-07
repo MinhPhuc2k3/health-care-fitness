@@ -33,7 +33,7 @@ public class Exercise {
     private ExerciseCategory category;
 
     @Column
-    @OneToMany
+    @ManyToMany
     private List<MuscleGroup> muscleGroups;
 
     @Column(nullable = false)

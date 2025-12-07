@@ -30,8 +30,7 @@ public class SessionExerciseController {
             @PathVariable int sessionExerciseId,
             @Valid @RequestBody SessionExercise sessionExercise) {
 
-        sessionExerciseService.updateSessionExercise(sessionExerciseId, sessionExercise);
-        return sessionExerciseService.getSessionExercise(sessionExerciseId);
+        return sessionExerciseService.updateSessionExercise(sessionExerciseId, sessionExercise);
     }
 
     @DeleteMapping("/{sessionExerciseId}")

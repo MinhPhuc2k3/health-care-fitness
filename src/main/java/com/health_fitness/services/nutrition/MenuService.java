@@ -24,7 +24,11 @@ public class MenuService {
     private final UserService userService;
     @PreAuthorize("isAuthenticated()")
     public Menu getMenuToDay(){
-        List<Menu> menu = menuRepository.findByCreatedDate(LocalDate.now()).stream().filter(m->m.getCreatedBy().equals(userService.getUser()))
+        MenuPlan menuPlan = menuPlanService.getMenuPlanToday();
+        List<Menu> menu = menuRepository.findByCreatedDate(LocalDate.now()).stream()
+                .filter(m ->
+                        m.getCreatedBy().equals(userService.getUser())
+                        &&m.getMenuPlan().equals(menuPlan))
                 .toList();
         return (!menu.isEmpty())? menu.get(0):createMenu(menuPlanService.getMenuPlanToday());
     }

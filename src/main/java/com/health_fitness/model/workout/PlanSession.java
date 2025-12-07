@@ -31,15 +31,12 @@ public class PlanSession {
     @Column(nullable = false)
     private Float targetCalories;
 
-    @Column(nullable = false)
-    private Integer sessionOrder;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Exercise.ExerciseCategory category;
 
     @Column
-    @OneToMany
+    @ManyToMany
     private List<MuscleGroup> muscleGroups;
 
     public enum ExerciseCategory {

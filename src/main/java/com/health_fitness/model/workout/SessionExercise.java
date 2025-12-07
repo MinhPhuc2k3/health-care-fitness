@@ -31,6 +31,9 @@ public class SessionExercise extends Auditable {
     private Session session;
 
     @Column
+    private Float estimatedCalories = 0F;
+
+    @Column
     private Integer reps;
 
     @Column

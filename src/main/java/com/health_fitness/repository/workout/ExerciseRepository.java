@@ -20,7 +20,7 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {
 
     @Query("""
      SELECT e FROM Exercise e JOIN e.muscleGroups mg
-     WHERE e.category =:category AND mg IN : muscleGroup
+     WHERE e.category =:category AND mg IN :muscleGroup
      """)
     Page<Exercise> getListExerciseByCategoryMuscleGroup(Exercise.ExerciseCategory category, List<MuscleGroup> muscleGroup, Pageable pageable);
 }

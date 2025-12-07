@@ -58,6 +58,11 @@ public class MealRecipeService {
 
     @PreAuthorize("isAuthenticated()")
     public void deleteMealRecipe(int mealRecipeId){
-        mealRecipeRepository.findById(mealRecipeId);
+        MealRecipe mealRecipe =  this.getMealRecipe(mealRecipeId);
+        mealRecipe.getMeal().getMenu().addTotalCalories(-mealRecipe.getCalories());
+        mealRecipe.getMeal().getMenu().addTotalCarbs(-mealRecipe.getCarbs());
+        mealRecipe.getMeal().getMenu().addTotalProtein(-mealRecipe.getProtein());
+        mealRecipe.getMeal().getMenu().addTotalFat(-mealRecipe.getFat());
+        mealRecipeRepository.deleteById(mealRecipeId);
     }
 }

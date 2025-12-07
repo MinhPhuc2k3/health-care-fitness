@@ -18,11 +18,4 @@ public class MuscleGroup {
     @Column
     private String name;
 
-    @ManyToOne
-    @JsonIgnore
-    private Exercise exercise;
-
-    @ManyToOne
-    @JsonIgnore
-    private PlanSession planSession;
 }
