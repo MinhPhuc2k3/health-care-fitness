@@ -52,6 +52,7 @@ public class SessionService {
         return session;
     }
 
+    @PreAuthorize("isAuthenticated()")
     public Session updateSession(int sessionId, Session session) {
         Session sessionToSave = getSession(sessionId);
         BeanUtils.copyProperties(session, sessionToSave, "id", "planSession", "sessionExercises");

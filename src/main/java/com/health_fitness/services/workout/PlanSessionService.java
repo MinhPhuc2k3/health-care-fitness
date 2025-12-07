@@ -24,6 +24,7 @@ public class PlanSessionService {
         return planSessionRepository.findById(planSessionId).orElseThrow(()->new NotFoundException("PlanSession's not found"));
     }
 
+    @PreAuthorize("isAuthenticated()")
     public PlanSession getPlanSessionByDay(DayOfWeek dayOfWeek){
         List<PlanSession> planSessionList = userPlanService.getActiveUserPlan().getPlan().getPlanSessions();
         for(PlanSession planSession:planSessionList){

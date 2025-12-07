@@ -40,20 +40,20 @@ public class SessionExerciseService {
         }else{
             sessionExerciseToSave.setEstimatedCalories(exercise.getDefaultCaloriesPerUnit()*sessionExercise.getReps()*sessionExercise.getSets());
         }
-        sessionExerciseToSave.getSession().addEstimatedCalories(sessionExercise.getEstimatedCalories());
+        sessionExerciseToSave.getSession().addEstimatedCalories(sessionExerciseToSave.getEstimatedCalories());
         return sessionExerciseRepository.save(sessionExerciseToSave);
     }
-
+    @PreAuthorize("isAuthenticated()")
     public Exercise getExercise(int sessionExerciseId){
         return getSessionExercise(sessionExerciseId).getExercise();
     }
-
+    @PreAuthorize("isAuthenticated()")
     public void deleteSessionExercise(int sessionExerciseId) {
         SessionExercise sessionExercise = getSessionExercise(sessionExerciseId);
-        sessionExercise.getSession().addEstimatedCalories(-sessionExercise.getEstimatedCalories());
+        sessionExercise.getSession().addEstimatedCalories(sessionExercise.getEstimatedCalories()==null? 0:-sessionExercise.getEstimatedCalories());
         sessionExerciseRepository.deleteById(sessionExerciseId);
     }
-
+    @PreAuthorize("isAuthenticated()")
     public SessionExercise updateSessionExercise(int sessionExerciseId, SessionExercise sessionExercise){
         SessionExercise oldSessionExercise = getSessionExercise(sessionExerciseId);
         Exercise exercise = oldSessionExercise.getExercise();
