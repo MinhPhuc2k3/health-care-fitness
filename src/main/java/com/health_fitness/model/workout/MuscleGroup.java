@@ -2,6 +2,7 @@ package com.health_fitness.model.workout;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.health_fitness.model.user.Auditable;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "muscle_groups")
 @Entity
-public class MuscleGroup {
+public class MuscleGroup extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

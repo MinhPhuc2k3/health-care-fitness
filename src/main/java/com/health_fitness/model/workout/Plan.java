@@ -3,6 +3,7 @@ package com.health_fitness.model.workout;
 
 import com.fasterxml.jackson.annotation.*;
 import com.health_fitness.model.nutrition.MenuPlan;
+import com.health_fitness.model.user.Auditable;
 import com.health_fitness.model.user.Goal;
 import lombok.*;
 import jakarta.persistence.*;
@@ -17,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Plan {
+public class Plan extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

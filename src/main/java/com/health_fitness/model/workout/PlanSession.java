@@ -1,6 +1,7 @@
 package com.health_fitness.model.workout;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.health_fitness.model.user.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PlanSession {
+public class PlanSession extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
