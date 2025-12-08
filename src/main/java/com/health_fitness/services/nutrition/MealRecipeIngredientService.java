@@ -44,7 +44,7 @@ public class MealRecipeIngredientService {
         menu.addTotalCalories(ingredient.getCalories()*delta);
         menu.addTotalFat(ingredient.getFat()*delta);
         menu.addTotalProtein(ingredient.getProtein()*delta);
-        BeanUtils.copyProperties(mealRecipeIngredient, mealRecipeIngredientToSave, "id", "mealRecipe", "ingredient");
+        BeanUtils.copyProperties(mealRecipeIngredient, mealRecipeIngredientToSave, "id", "ingredient", "mealRecipe");
         return mealRecipeIngredientRepository.save(mealRecipeIngredientToSave);
     }
 
