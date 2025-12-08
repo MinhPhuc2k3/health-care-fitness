@@ -50,7 +50,7 @@ public class Recipe extends Auditable {
     @Column
     private Float fat;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String imageUrl;
 
     @Column
