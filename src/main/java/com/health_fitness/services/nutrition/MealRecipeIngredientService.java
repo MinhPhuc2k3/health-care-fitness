@@ -40,6 +40,7 @@ public class MealRecipeIngredientService {
         Menu menu = mealRecipeIngredientToSave.getMealRecipe().getMeal().getMenu();
         Ingredient ingredient = mealRecipeIngredientToSave.getIngredient();
         float delta = mealRecipeIngredient.getQuantity() - mealRecipeIngredientToSave.getQuantity();
+        delta/=100;
         MealRecipe mealRecipe = mealRecipeIngredientToSave.getMealRecipe();
         mealRecipe.addCalories(ingredient.getCalories()*delta);
         mealRecipe.addFat(ingredient.getFat()*delta);
@@ -49,7 +50,7 @@ public class MealRecipeIngredientService {
         menu.addTotalCalories(ingredient.getCalories()*delta);
         menu.addTotalFat(ingredient.getFat()*delta);
         menu.addTotalProtein(ingredient.getProtein()*delta);
-        BeanUtils.copyProperties(mealRecipeIngredient, mealRecipeIngredientToSave, "id", "mealRecipe", "ingredient");
+        BeanUtils.copyProperties(mealRecipeIngredient, mealRecipeIngredientToSave, "id", "ingredient", "mealRecipe");
         return mealRecipeIngredientRepository.save(mealRecipeIngredientToSave);
     }
 

@@ -34,21 +34,26 @@ public class MenuService {
     }
 
     @PreAuthorize("isAuthenticated()")
-    public Menu createMenu(MenuPlan menuPlan){
+    public Menu createMenu(MenuPlan menuPlan) {
         Menu menu = Menu.builder()
                 .menuPlan(menuPlan)
                 .status(Menu.MenuStatus.IN_PROGRESS)
+                .actualTotalCalories(0F)
+                .actualTotalCarb(0F)
+                .actualTotalProtein(0F)
+                .actualTotalFat(0F)
+                .notes("")
                 .build();
         return menuRepository.save(menu);
     }
 
     @PreAuthorize("isAuthenticated()")
-    public Menu getMenuById(int menuId){
-        return menuRepository.findById(menuId).orElseThrow(()->new NotFoundException("Menu's not found"));
+    public Menu getMenuById(int menuId) {
+        return menuRepository.findById(menuId).orElseThrow(() -> new NotFoundException("Menu's not found"));
     }
 
     @PreAuthorize("isAuthenticated()")
-    public Page<Menu> getMenu(Pageable pageable){
+    public Page<Menu> getMenu(Pageable pageable) {
         return menuRepository.findAllByUser(userService.getUser(), pageable);
     }
 }
