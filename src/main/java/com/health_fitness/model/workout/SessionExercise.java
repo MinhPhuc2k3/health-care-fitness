@@ -24,18 +24,27 @@ public class SessionExercise extends Auditable {
     @NotNull
     private Exercise exercise;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "session_id", nullable = false)
     @NotNull
     @JsonBackReference
     private Session session;
 
-    @Column(nullable = false)
+    @Column
+    private Float estimatedCalories = 0F;
+
+    @Column
     private Integer reps;
 
-    @Column(nullable = false)
+    @Column
     private Integer sets;
 
-    @Column(nullable = false)
+    @Column
     private Float weightUsed;
+
+    @Column
+    private Float hours;
+
+    @Enumerated
+    private Exercise.Unit unit;
 }

@@ -22,15 +22,15 @@ public class MenuService {
     private final MenuRepository menuRepository;
     private final MenuPlanService menuPlanService;
     private final UserService userService;
-
     @PreAuthorize("isAuthenticated()")
-    public Menu getMenuToDay() {
+    public Menu getMenuToDay(){
         MenuPlan menuPlan = menuPlanService.getMenuPlanToday();
         List<Menu> menu = menuRepository.findByCreatedDate(LocalDate.now()).stream()
                 .filter(m ->
-                        m.getCreatedBy().equals(userService.getUser()) && m.getMenuPlan().equals(menuPlan))
+                        m.getCreatedBy().equals(userService.getUser())
+                        &&m.getMenuPlan().equals(menuPlan))
                 .toList();
-        return (!menu.isEmpty()) ? menu.get(0) : createMenu(menuPlanService.getMenuPlanToday());
+        return (!menu.isEmpty())? menu.get(0):createMenu(menuPlanService.getMenuPlanToday());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -38,6 +38,11 @@ public class MenuService {
         Menu menu = Menu.builder()
                 .menuPlan(menuPlan)
                 .status(Menu.MenuStatus.IN_PROGRESS)
+                .actualTotalCalories(0F)
+                .actualTotalCarb(0F)
+                .actualTotalProtein(0F)
+                .actualTotalFat(0F)
+                .notes("")
                 .build();
         return menuRepository.save(menu);
     }

@@ -26,7 +26,7 @@ public class MenuPlan {
     private Integer id;
 
     @NotNull(message = "user plan is required")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_plan_id", nullable = false)
     @JsonBackReference
     private UserPlan userPlan;

@@ -23,7 +23,7 @@ public class Menu extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "menu_plan_id")
     private MenuPlan menuPlan;
 
@@ -32,19 +32,19 @@ public class Menu extends Auditable {
 
     @PositiveOrZero
     @Column
-    private Float actualTotalCalories;
+    private Float actualTotalCalories = 0F;
 
     @PositiveOrZero
     @Column
-    private Float actualTotalProtein;
+    private Float actualTotalProtein  = 0F;
 
     @PositiveOrZero
     @Column
-    private Float actualTotalCarb;
+    private Float actualTotalCarb = 0F;
 
     @PositiveOrZero
     @Column
-    private Float actualTotalFat;
+    private Float actualTotalFat = 0F;
 
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default

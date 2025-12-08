@@ -20,12 +20,12 @@ public class MealRecipeIngredient {
     private Integer id;
 
     @NotNull(message = "Ingredient is required")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "ingredient_id", nullable = false)
     private Ingredient ingredient;
 
     @NotNull(message = "Meal recipe is required")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "meal_recipe_id", nullable = false)
     @JsonBackReference
     private MealRecipe mealRecipe;

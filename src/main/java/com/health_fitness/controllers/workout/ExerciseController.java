@@ -1,6 +1,8 @@
 package com.health_fitness.controllers.workout;
 
+import com.health_fitness.controllers.workout.dto.ExerciseSearchDTO;
 import com.health_fitness.model.workout.Exercise;
+import com.health_fitness.model.workout.MuscleGroup;
 import com.health_fitness.services.workout.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -8,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/exercises")
@@ -23,12 +27,11 @@ public class ExerciseController {
 
     @GetMapping
     public Page<Exercise> getListExercises(
-            @RequestParam(required = false) Exercise.ExerciseCategory category,
-            @RequestParam(required = false) Exercise.MuscleGroup muscleGroup,
+            @RequestBody ExerciseSearchDTO exerciseSearchDTO,
             @PageableDefault(size = 20) Pageable pageable) {
 
         return exerciseService.getListExerciseByCategoryMuscleGroup(
-                category, muscleGroup, pageable
+                exerciseSearchDTO.getCategory(), exerciseSearchDTO.getMuscleGroups(), pageable
         );
     }
 

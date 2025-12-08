@@ -25,12 +25,12 @@ public class Meal extends Auditable{
     @Column
     private MealType mealType;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "meal_id")
     @JsonManagedReference
     private List<MealRecipe> mealRecipe;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "menu_id")
     @JsonBackReference
     private Menu menu;

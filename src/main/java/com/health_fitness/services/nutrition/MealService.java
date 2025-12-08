@@ -2,6 +2,7 @@ package com.health_fitness.services.nutrition;
 
 import com.health_fitness.exception.NotFoundException;
 import com.health_fitness.model.nutrition.Meal;
+import com.health_fitness.model.nutrition.Menu;
 import com.health_fitness.repository.nutrition.MealRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,13 @@ public class MealService {
         Meal meal = Meal.builder()
                 .menu(menuService.getMenuById(menuId))
                 .build();
+        return mealRepository.save(meal);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    public Meal addMeal(Meal meal){
+        Menu menu = menuService.getMenuById(meal.getMenu().getId());
+        meal.setMenu(menu);
         return mealRepository.save(meal);
     }
 

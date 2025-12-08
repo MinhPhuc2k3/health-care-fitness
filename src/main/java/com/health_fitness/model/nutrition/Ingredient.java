@@ -26,6 +26,7 @@ public class Ingredient extends Auditable {
     @Column(nullable = false)
     private String name;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @PositiveOrZero
@@ -44,7 +45,7 @@ public class Ingredient extends Auditable {
     @Column
     private Float fat;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String imageUrl;
 
     @Column
