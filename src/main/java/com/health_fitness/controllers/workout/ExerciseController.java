@@ -1,6 +1,7 @@
 package com.health_fitness.controllers.workout;
 
 import com.health_fitness.controllers.workout.dto.ExerciseSearchDTO;
+import com.health_fitness.model.user.User;
 import com.health_fitness.model.workout.Exercise;
 import com.health_fitness.model.workout.MuscleGroup;
 import com.health_fitness.services.workout.ExerciseService;
@@ -27,11 +28,11 @@ public class ExerciseController {
 
     @GetMapping
     public Page<Exercise> getListExercises(
-            @RequestBody ExerciseSearchDTO exerciseSearchDTO,
+            @RequestParam Exercise.ExerciseCategory category, @RequestParam List<Integer> muscleGroup, @RequestParam User.ActivityLevel activityLevel,
             @PageableDefault(size = 20) Pageable pageable) {
 
         return exerciseService.getListExerciseByCategoryMuscleGroup(
-                exerciseSearchDTO.getCategory(), exerciseSearchDTO.getMuscleGroups(), pageable
+                category, muscleGroup, activityLevel, pageable
         );
     }
 
