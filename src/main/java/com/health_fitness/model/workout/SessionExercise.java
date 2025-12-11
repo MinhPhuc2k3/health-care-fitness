@@ -44,7 +44,4 @@ public class SessionExercise extends Auditable {
 
     @Column
     private Float hours;
-
-    @Enumerated
-    private Exercise.Unit unit;
 }

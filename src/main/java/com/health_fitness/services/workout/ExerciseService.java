@@ -1,6 +1,7 @@
 package com.health_fitness.services.workout;
 
 import com.health_fitness.exception.NotFoundException;
+import com.health_fitness.model.user.User;
 import com.health_fitness.model.workout.Exercise;
 import com.health_fitness.model.workout.MuscleGroup;
 import com.health_fitness.repository.workout.ExerciseRepository;
@@ -26,10 +27,10 @@ public class ExerciseService {
         return exerciseRepository.findAll(pageable);
     }
 
-    public Page<Exercise> getListExerciseByCategoryMuscleGroup(Exercise.ExerciseCategory category, List<MuscleGroup> muscleGroup, Pageable pageable) {
+    public Page<Exercise> getListExerciseByCategoryMuscleGroup(Exercise.ExerciseCategory category, List<MuscleGroup> muscleGroup, User.ActivityLevel activityLevel, Pageable pageable) {
         if(category==null && muscleGroup==null){
             return getAllExercise(pageable);
         }
-        return (muscleGroup==null)? exerciseRepository.getListExerciseByCategory(category, pageable) : exerciseRepository.getListExerciseByCategoryMuscleGroup(category,muscleGroup,pageable);
+        return (muscleGroup==null)? exerciseRepository.getListExerciseByCategory(category, pageable) : exerciseRepository.getListExerciseByCategoryMuscleGroup(category,muscleGroup, activityLevel,pageable);
     }
 }
