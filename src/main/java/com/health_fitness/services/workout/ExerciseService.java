@@ -5,6 +5,8 @@ import com.health_fitness.model.user.User;
 import com.health_fitness.model.workout.Exercise;
 import com.health_fitness.model.workout.MuscleGroup;
 import com.health_fitness.repository.workout.ExerciseRepository;
+import com.health_fitness.repository.workout.MuscleGroupRepository;
+import com.health_fitness.repository.workout.specification.ExerciseSpecification;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import java.util.List;
 @Transactional
 public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
+    private final MuscleGroupRepository muscleGroupRepository;
 
     public Exercise getExercise(int exerciseId){
         return exerciseRepository.findById(exerciseId).orElseThrow(()->new NotFoundException("Exercise not found"));
@@ -27,10 +30,8 @@ public class ExerciseService {
         return exerciseRepository.findAll(pageable);
     }
 
-    public Page<Exercise> getListExerciseByCategoryMuscleGroup(Exercise.ExerciseCategory category, List<MuscleGroup> muscleGroup, User.ActivityLevel activityLevel, Pageable pageable) {
-        if(category==null && muscleGroup==null){
-            return getAllExercise(pageable);
-        }
-        return (muscleGroup==null)? exerciseRepository.getListExerciseByCategory(category, pageable) : exerciseRepository.getListExerciseByCategoryMuscleGroup(category,muscleGroup, activityLevel,pageable);
+    public Page<Exercise> getListExerciseByCategoryMuscleGroup(Exercise.ExerciseCategory category, List<Integer> muscleGroupIds, User.ActivityLevel activityLevel, Pageable pageable) {
+        java.util.List<MuscleGroup> muscleGroup = muscleGroupRepository.findAllById(muscleGroupIds);
+        return exerciseRepository.findAll(ExerciseSpecification.findByCategoryMuscleGroupsActivityLevel(category, muscleGroup, activityLevel), pageable);
     }
 }
