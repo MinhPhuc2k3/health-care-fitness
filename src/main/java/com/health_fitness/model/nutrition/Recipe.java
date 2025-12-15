@@ -1,6 +1,5 @@
 package com.health_fitness.model.nutrition;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.health_fitness.model.user.Auditable;

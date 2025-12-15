@@ -4,9 +4,7 @@ import com.health_fitness.model.workout.Session;
 import com.health_fitness.model.workout.SessionExercise;
 import com.health_fitness.services.workout.SessionService;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

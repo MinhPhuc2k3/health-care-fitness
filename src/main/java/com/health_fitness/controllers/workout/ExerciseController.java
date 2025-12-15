@@ -1,6 +1,5 @@
 package com.health_fitness.controllers.workout;
 
-import com.health_fitness.controllers.workout.dto.ExerciseSearchDTO;
 import com.health_fitness.model.user.User;
 import com.health_fitness.model.workout.Exercise;
 import com.health_fitness.services.workout.ExerciseService;
@@ -10,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -34,4 +34,8 @@ public class ExerciseController {
         );
     }
 
+    @PostMapping
+    public Exercise createExercise(@ModelAttribute Exercise exercise) throws IOException {
+        return exerciseService.createExercise(exercise);
+    }
 }
