@@ -5,10 +5,7 @@ import com.health_fitness.model.workout.Plan;
 import com.health_fitness.model.workout.PlanSession;
 import com.health_fitness.services.workout.PlanService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +15,11 @@ import java.util.List;
 public class PlanController {
 
     private final PlanService planService;
+
+    @PostMapping
+    public  Plan createPlan(@RequestBody Plan plan){
+        return planService.createPlan(plan);
+    }
 
     @GetMapping("/{planId}")
     public Plan getPlan(@PathVariable int planId) {

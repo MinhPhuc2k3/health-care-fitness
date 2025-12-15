@@ -22,7 +22,7 @@ public class Session extends Auditable {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "plan_session_id", nullable = false)
+    @JoinColumn(name = "plan_session_id")
     private PlanSession planSession;
 
     @Column

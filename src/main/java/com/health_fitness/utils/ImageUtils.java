@@ -55,6 +55,12 @@ public class ImageUtils {
                         .width(800).height(600)
                         .crop("fill").quality("auto:good");
             }
+            case EXERCISE -> {
+                folder = "exercise";
+                yield new Transformation<>()
+                        .width(800).height(600)
+                        .crop("fill").quality("auto:good");
+            }
             default -> {
                 folder = "others";
                 yield new Transformation<>()

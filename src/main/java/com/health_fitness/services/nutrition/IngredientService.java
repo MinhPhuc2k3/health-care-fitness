@@ -37,11 +37,12 @@ public class IngredientService {
             ingredient.setImageId((String) uploadResult.get(0));
             ingredient.setImageUrl((String) uploadResult.get(1));
         }
+        ingredient.setId(null);
         return ingredientRepository.save(ingredient);
     }
 
     @PreAuthorize("isAuthenticated()")
-    public Ingredient updateIngredient(Long id, Ingredient ingredient) throws IOException {
+    public Ingredient updateIngredient(Integer id, Ingredient ingredient) throws IOException {
         Ingredient ingredientToSave = getIngredient(id);
         BeanUtils.copyProperties(ingredient, ingredientToSave, "id");
         MultipartFile file = ingredient.getImage();
@@ -58,17 +59,23 @@ public class IngredientService {
     }
 
     @PreAuthorize("isAuthenticated()")
-    public Ingredient getIngredient(Long id) {
+    public Ingredient getIngredient(Integer id) {
         return ingredientRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Ingredient not found"));
     }
+
+    @PreAuthorize("isAuthenticated()")
+    public List<Ingredient> getIngredientById(List<Integer> ids) {
+        return ingredientRepository.findAllById(ids);
+    }
+
 
     public Page<Ingredient> getAllIngredients(Pageable pageable) {
         return ingredientRepository.findAll(pageable);
     }
 
     @PreAuthorize("isAuthenticated()")
-    public void deleteIngredient(Long id) throws IOException {
+    public void deleteIngredient(Integer id) throws IOException {
         Ingredient ingredient = this.getIngredient(id);
         if (ingredient.getImageId() != null) {
             imageUtils.deleteImage(ingredient.getImageId());

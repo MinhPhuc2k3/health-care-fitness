@@ -26,14 +26,14 @@ public class IngredientController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Ingredient> updateIngredient(
-            @PathVariable Long id,
+            @PathVariable Integer id,
             @ModelAttribute Ingredient ingredient) throws IOException {
         Ingredient updated = ingredientService.updateIngredient(id, ingredient);
         return ResponseEntity.ok(updated);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Ingredient> getIngredient(@PathVariable Long id) {
+    public ResponseEntity<Ingredient> getIngredient(@PathVariable Integer id) {
         Ingredient ingredient = ingredientService.getIngredient(id);
         return ResponseEntity.ok(ingredient);
     }
@@ -45,7 +45,7 @@ public class IngredientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteIngredient(@PathVariable Long id) throws IOException {
+    public ResponseEntity<Void> deleteIngredient(@PathVariable Integer id) throws IOException {
         ingredientService.deleteIngredient(id);
         return ResponseEntity.noContent().build();
     }
