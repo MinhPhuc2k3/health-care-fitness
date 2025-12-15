@@ -41,6 +41,7 @@ public class MealRecipeIngredientService {
         Ingredient ingredient = mealRecipeIngredientToSave.getIngredient();
         float delta = mealRecipeIngredient.getQuantity() - mealRecipeIngredientToSave.getQuantity();
         delta/=100;
+        
         MealRecipe mealRecipe = mealRecipeIngredientToSave.getMealRecipe();
         mealRecipe.addCalories(ingredient.getCalories()*delta);
         mealRecipe.addFat(ingredient.getFat()*delta);
