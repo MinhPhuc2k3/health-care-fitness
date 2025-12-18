@@ -1,6 +1,5 @@
 package com.health_fitness.model.workout.classid;
 
-import jakarta.persistence.IdClass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -17,4 +17,8 @@ public class MuscleGroupService {
     public List<MuscleGroup> getMuscleGroupByIds(List<Integer> muscleGroupIds){
         return muscleGroupRepository.findAllById(muscleGroupIds);
     }
+
+    public List<MuscleGroup> getMuscleGroup(){
+        return muscleGroupRepository.findAll();
+    }
 }

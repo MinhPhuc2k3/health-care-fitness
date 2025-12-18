@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciseSpecification {
-    public static Specification<Exercise> findByCategoryMuscleGroupsActivityLevel(
+    public static Specification<Exercise> findByCategoryMuscleGroupsActivityLevel( final String exerciseName,
             final Exercise.ExerciseCategory category, final List<MuscleGroup> muscleGroups, final User.ActivityLevel activityLevel
     ) {
         return ((root, query, criteriaBuilder) -> {
@@ -26,6 +26,12 @@ public class ExerciseSpecification {
             }
             if(activityLevel != null) {
                 predicates.add(criteriaBuilder.equal(root.get("difficulty"), activityLevel));
+            }
+            if(exerciseName != null) {
+                predicates.add(criteriaBuilder.or(
+                        criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%"+exerciseName.toLowerCase()+"%"),
+                        criteriaBuilder.like(criteriaBuilder.lower(root.get("description")), "%"+exerciseName.toLowerCase()+"%")
+                ));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         });

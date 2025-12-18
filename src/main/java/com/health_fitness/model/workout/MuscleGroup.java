@@ -19,4 +19,8 @@ public class MuscleGroup extends Auditable {
     @Column
     private String name;
 
+    @Override
+    public String toString() {
+        return "id: "+id+", name: "+name;
+    }
 }
