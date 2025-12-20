@@ -1,6 +1,7 @@
 package com.health_fitness.controllers.nutrition;
 
 import com.health_fitness.model.nutrition.Menu;
+import com.health_fitness.services.nutrition.MenuAutoFillService;
 import com.health_fitness.services.nutrition.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 class MenuController {
     private final MenuService menuService;
+    private final MenuAutoFillService  menuAutoFillService;
 
     @GetMapping("/today")
     public ResponseEntity<Menu> getMenuToday() {
@@ -29,6 +31,12 @@ class MenuController {
 
     public ResponseEntity<Page<Menu>> getAllMenu(Pageable pageable){
         return ResponseEntity.ok(menuService.getMenu(pageable));
+    }
+
+    @PostMapping("/{menuId}/auto-fill")
+    public ResponseEntity<Menu> autoFillMenu(@PathVariable int menuId) {
+        Menu filledMenu = menuAutoFillService.autoFillMenu(menuId);
+        return ResponseEntity.ok(filledMenu);
     }
 }
 
