@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
-    @Query("SELECT r FROM Recipe r WHERE r.name LIKE %:name%")
+    @Query("SELECT r FROM Recipe r WHERE LOWER(r.name) LIKE LOWER(CONCAT('%',:name,'%'))")
     Page<Recipe> findRecipeByName(String name, Pageable pageable);
 }

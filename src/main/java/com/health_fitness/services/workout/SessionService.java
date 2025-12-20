@@ -42,6 +42,9 @@ public class SessionService {
 
     public Session getSessionToday() {
         PlanSession planSession = planSessionService.getPlanSessionByDay(LocalDate.now().getDayOfWeek());
+        if(planSession == null) {
+            throw new NotFoundException("Have no plan session for today");
+        }
         Session session= sessionRepository.findByCreatedDate(LocalDate.now(), userService.getUser(), planSession);
         if(session==null){
             session = new Session();
