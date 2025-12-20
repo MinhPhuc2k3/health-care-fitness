@@ -2,12 +2,16 @@ package com.health_fitness.model.workout;
 
 import com.health_fitness.model.workout.classid.CaloriesStatId;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
 @IdClass(CaloriesStatId.class)
-public class CaloriesStat {
+public class CaloriesStat{
 
     @Id
     @Column(name = "user_id")

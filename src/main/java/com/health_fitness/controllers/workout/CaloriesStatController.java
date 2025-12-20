@@ -3,6 +3,7 @@ package com.health_fitness.controllers.workout;
 import com.health_fitness.model.workout.CaloriesStat;
 import com.health_fitness.services.workout.CaloriesStatService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +20,7 @@ public class CaloriesStatController {
     private final CaloriesStatService caloriesStatService;
 
     @GetMapping
-    public List<CaloriesStat> getCaloriesStat(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
-        return this.caloriesStatService.getCaloriesStatByDate(startDate, endDate);
+    public ResponseEntity<List<CaloriesStat>> getCaloriesStat(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
+        return ResponseEntity.ok(this.caloriesStatService.getCaloriesStatByDate(startDate, endDate));
     }
 }
