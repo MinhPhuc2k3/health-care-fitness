@@ -27,6 +27,7 @@ public class ChatHistory extends Auditable {
     @Column(columnDefinition = "TEXT")
     private String userPrompt;
 
+    @JsonIgnore
     @Column(columnDefinition = "TEXT")
     private String systemPrompt;
 
@@ -35,9 +36,6 @@ public class ChatHistory extends Auditable {
 
     @Enumerated(EnumType.STRING)
     private ChatCategory category;
-
-    @Column(name = "menu_id")
-    private Integer relatedMenuId;
 
     public enum ChatCategory {
         MENU_GENERATION, NUTRITION_ADVICE, GENERAL
