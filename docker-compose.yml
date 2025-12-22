@@ -33,8 +33,13 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
+      SPRING_AI_VERTEX_AI_GEMINI_PROJECT_ID: ${PROJECT_ID}
+      SPRING_AI_VERTEX_AI_GEMINI_LOCATION: ${LOCATION}
+      GOOGLE_APPLICATION_CREDENTIALS: "/app/config/google-api-key.json"
     ports:
       - "8000:8000"
     restart: always
+    volumes:
+      - ./gemini-console.json:/app/config/google-api-key.json:ro
 volumes:
   postgres_data:

@@ -25,8 +25,7 @@ public class Meal extends Auditable{
     @Column
     private MealType mealType;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "meal_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "meal")
     @JsonManagedReference
     private List<MealRecipe> mealRecipe;
 

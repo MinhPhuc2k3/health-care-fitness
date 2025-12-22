@@ -71,4 +71,15 @@ public class Recipe extends Auditable {
     public enum RecipeType {
         MAIN_DISH, DRINK, SNACK, SIDE_DISH
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder().append("id: ").append(id)
+                .append("name: ").append(name)
+                .append("calories: ").append(calories)
+                .append("protein: ").append(protein)
+                .append("carbs: ").append(carbs)
+                .append("fat: ").append(fat)
+                .toString();
+    }
 }

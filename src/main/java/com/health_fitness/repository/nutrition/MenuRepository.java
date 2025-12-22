@@ -19,4 +19,6 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
     @Query("SELECT m FROM Menu m WHERE DATE(m.createdBy) =:user")
     Page<Menu> findAllByUser(User user, Pageable pageable);
+
+    List<Menu> findTop5ByCreatedByOrderByCreatedDateDesc(User user);
 }

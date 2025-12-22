@@ -33,7 +33,7 @@ public class MealRecipe {
     @JsonBackReference
     private Meal meal;
 
-    @OneToMany(mappedBy = "mealRecipe", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "mealRecipe", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @JsonManagedReference
     private List<MealRecipeIngredient> mealRecipeIngredients = new ArrayList<>();

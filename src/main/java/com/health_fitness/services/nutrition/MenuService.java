@@ -56,4 +56,12 @@ public class MenuService {
     public Page<Menu> getMenu(Pageable pageable) {
         return menuRepository.findAllByUser(userService.getUser(), pageable);
     }
+
+    public Menu saveMenu(Menu menu) {
+        Menu todayMenu = this.getMenuToDay();
+        if(todayMenu!=null) menuRepository.delete(todayMenu);
+        menu.setId(null);
+        menu.setMenuPlan(this.menuPlanService.getMenuPlanToday());
+        return menuRepository.save(menu);
+    }
 }
