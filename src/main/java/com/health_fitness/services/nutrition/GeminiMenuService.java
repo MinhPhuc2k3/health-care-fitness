@@ -138,6 +138,16 @@ public class GeminiMenuService {
                             .build();
 
                     // Thêm logic mapping ingredients nếu AI trả về chi tiết quantity
+                    recipe.getRecipeIngredients().forEach(
+                            recipeIngredient -> {
+                                MealRecipeIngredient mri = MealRecipeIngredient.builder()
+                                        .ingredient(recipeIngredient.getIngredient())
+                                        .mealRecipe(mr)
+                                        .quantity(recipeIngredient.getQuantity())
+                                        .build();
+                                mr.getMealRecipeIngredients().add(mri);
+                            }
+                    );
                     meal.getMealRecipe().add(mr);
                 }
             });
