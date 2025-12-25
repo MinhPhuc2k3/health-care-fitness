@@ -74,7 +74,12 @@ public class RecipeService {
     @PreAuthorize("isAuthenticated()")
     public Recipe updateRecipe(int id, Recipe update) throws IOException {
         Recipe recipe = getRecipe(id);
-        BeanUtils.copyProperties(update, recipe, "id");
+        recipe.getRecipeIngredients().clear();
+        BeanUtils.copyProperties(update, recipe, "id", "recipeIngredients");
+        for(RecipeIngredient ri: update.getRecipeIngredients()){
+            ri.setRecipe(recipe);
+            recipe.getRecipeIngredients().add(ri);
+        }
         MultipartFile file = update.getImage();
         if (file != null && !file.isEmpty()) {
             if (recipe.getImageId() != null) {
