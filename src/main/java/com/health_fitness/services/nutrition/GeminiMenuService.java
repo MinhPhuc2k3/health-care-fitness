@@ -77,10 +77,11 @@ public class GeminiMenuService {
                 NHIỆM VỤ: Tạo thực đơn 1 ngày (Menu) dựa trên dữ liệu sau:
                 1. MỤC TIÊU: Calo: %.1f, Protein: %.1f, Carb: %.1f, Fat: %.1f.
                 2. DANH SÁCH MÓN ĂN ĐƯỢC PHÉP DÙNG: [%s]
-                
                 QUY TẮC:
-                - Phải có đủ 4 bữa: BREAKFAST, LUNCH, DINNER, SNACK.
+                - Phải có đủ 3 bữa: BREAKFAST, LUNCH, DINNER.
                 - Tổng dinh dưỡng các món phải xấp xỉ MỤC TIÊU (sai số < 5%%).
+                - Ưu tiên độ chính xác của calories
+                - LƯỢNG DINH DƯỠNG ĐƯỢC TÍNH BẰNG CALORIES, CARB, FAT, PROTEIN của ingredient lần lượt nhân với QUANTITY ở recipe_ingredient và chia 100
                 - Không được lặp lại các món ăn có tên tương tự cho các bữa trong ngày
                 - Phải trả về JSON khớp cấu trúc sau:
                 %s
@@ -90,10 +91,9 @@ public class GeminiMenuService {
 
         systemPrompt += """
                 Ngày đề xuất: %s
-                Sở thích từ lịch sử: %s
                 Lưu ý từ các cuộc trò chuyện trước: %s
                 Hãy gợi ý thực đơn tốt nhất cho tôi.
-                """.formatted(targetPlan.getDayOfWeek().name(), serializeHistory(history), serializeChat(pastChats));
+                """.formatted(targetPlan.getDayOfWeek().name(),serializeChat(pastChats));
 
         // 6. Gọi Gemini
         String aiResponse = chatClient.prompt()
@@ -110,10 +110,10 @@ public class GeminiMenuService {
                 .menuPlan(plan)
                 .notes(dto.getNotes())
                 .status(Menu.MenuStatus.IN_PROGRESS)
-                .actualTotalCalories(dto.getTotalCalories())
-                .actualTotalProtein(dto.getTotalProtein())
-                .actualTotalCarb(dto.getTotalCarbs())
-                .actualTotalFat(dto.getTotalFat())
+                .actualTotalCalories(0F)
+                .actualTotalProtein(0F)
+                .actualTotalCarb(0F)
+                .actualTotalFat(0F)
                 .meals(new ArrayList<>())
                 .build();
 
@@ -130,10 +130,10 @@ public class GeminiMenuService {
                     MealRecipe mr = MealRecipe.builder()
                             .recipe(recipe)
                             .meal(meal)
-                            .calories(recipe.getCalories())
-                            .protein(recipe.getProtein())
-                            .carbs(recipe.getCarbs())
-                            .fat(recipe.getFat())
+                            .calories(0F)
+                            .protein(0F)
+                            .carbs(0F)
+                            .fat(0F)
                             .mealRecipeIngredients(new ArrayList<>())
                             .build();
 
@@ -145,8 +145,16 @@ public class GeminiMenuService {
                                         .mealRecipe(mr)
                                         .quantity(recipeIngredient.getQuantity())
                                         .build();
+                                Ingredient ingredient = mri.getIngredient();
                                 mr.getMealRecipeIngredients().add(mri);
-                            }
+                                mr.addCalories(mri.getQuantity()*ingredient.getCalories()/100);
+                                mr.addFat(mri.getQuantity()*ingredient.getFat()/100);
+                                mr.addCarbs(ingredient.getCarbs()*mri.getQuantity()/100);
+                                mr.addProtein(ingredient.getProtein()*mri.getQuantity()/100);
+                                menu.addTotalCalories(mri.getQuantity()*ingredient.getCalories()/100);
+                                menu.addTotalCarbs(ingredient.getCarbs()*mri.getQuantity()/100);
+                                menu.addTotalProtein(ingredient.getProtein()*mri.getQuantity()/100);
+                                menu.addTotalFat(mri.getQuantity()*ingredient.getFat()/100);}
                     );
                     meal.getMealRecipe().add(mr);
                 }
@@ -165,10 +173,6 @@ public class GeminiMenuService {
                 .category(ChatHistory.ChatCategory.MENU_GENERATION)
                 .build();
         return chatHistoryRepository.save(log);
-    }
-
-    private String serializeHistory(List<Menu> history) {
-        return history.stream().map(m -> m.getNotes()).collect(Collectors.joining(", "));
     }
 
     private String serializeChat(List<ChatHistory> chats) {
