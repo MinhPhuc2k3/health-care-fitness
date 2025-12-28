@@ -91,9 +91,10 @@ public class GeminiMenuService {
 
         systemPrompt += """
                 Ngày đề xuất: %s
+                Sở thích từ lịch sử: %s
                 Lưu ý từ các cuộc trò chuyện trước: %s
                 Hãy gợi ý thực đơn tốt nhất cho tôi.
-                """.formatted(targetPlan.getDayOfWeek().name(),serializeChat(pastChats));
+                """.formatted(targetPlan.getDayOfWeek().name(), serializeHistory(history), serializeChat(pastChats));
 
         // 6. Gọi Gemini
         String aiResponse = chatClient.prompt()
@@ -110,10 +111,10 @@ public class GeminiMenuService {
                 .menuPlan(plan)
                 .notes(dto.getNotes())
                 .status(Menu.MenuStatus.IN_PROGRESS)
-                .actualTotalCalories(0F)
-                .actualTotalProtein(0F)
-                .actualTotalCarb(0F)
-                .actualTotalFat(0F)
+                .actualTotalCalories(dto.getTotalCalories())
+                .actualTotalProtein(dto.getTotalProtein())
+                .actualTotalCarb(dto.getTotalCarbs())
+                .actualTotalFat(dto.getTotalFat())
                 .meals(new ArrayList<>())
                 .build();
 
@@ -130,10 +131,10 @@ public class GeminiMenuService {
                     MealRecipe mr = MealRecipe.builder()
                             .recipe(recipe)
                             .meal(meal)
-                            .calories(0F)
-                            .protein(0F)
-                            .carbs(0F)
-                            .fat(0F)
+                            .calories(recipe.getCalories())
+                            .protein(recipe.getProtein())
+                            .carbs(recipe.getCarbs())
+                            .fat(recipe.getFat())
                             .mealRecipeIngredients(new ArrayList<>())
                             .build();
 
@@ -145,16 +146,8 @@ public class GeminiMenuService {
                                         .mealRecipe(mr)
                                         .quantity(recipeIngredient.getQuantity())
                                         .build();
-                                Ingredient ingredient = mri.getIngredient();
                                 mr.getMealRecipeIngredients().add(mri);
-                                mr.addCalories(mri.getQuantity()*ingredient.getCalories()/100);
-                                mr.addFat(mri.getQuantity()*ingredient.getFat()/100);
-                                mr.addCarbs(ingredient.getCarbs()*mri.getQuantity()/100);
-                                mr.addProtein(ingredient.getProtein()*mri.getQuantity()/100);
-                                menu.addTotalCalories(mri.getQuantity()*ingredient.getCalories()/100);
-                                menu.addTotalCarbs(ingredient.getCarbs()*mri.getQuantity()/100);
-                                menu.addTotalProtein(ingredient.getProtein()*mri.getQuantity()/100);
-                                menu.addTotalFat(mri.getQuantity()*ingredient.getFat()/100);}
+                            }
                     );
                     meal.getMealRecipe().add(mr);
                 }
@@ -173,6 +166,10 @@ public class GeminiMenuService {
                 .category(ChatHistory.ChatCategory.MENU_GENERATION)
                 .build();
         return chatHistoryRepository.save(log);
+    }
+
+    private String serializeHistory(List<Menu> history) {
+        return history.stream().map(m -> m.getNotes()).collect(Collectors.joining(", "));
     }
 
     private String serializeChat(List<ChatHistory> chats) {

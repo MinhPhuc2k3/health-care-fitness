@@ -21,6 +21,11 @@ public class PlanController {
         return planService.createPlan(plan);
     }
 
+    @GetMapping
+    public List<Plan> getAllPlan(@RequestParam int goalId){
+        return planService.getAll(goalId);
+    }
+
     @GetMapping("/{planId}")
     public Plan getPlan(@PathVariable int planId) {
         return planService.getPlan(planId);
@@ -29,5 +34,15 @@ public class PlanController {
     @GetMapping("/{planId}/sessions")
     public List<PlanSession> getPlanSessions(@PathVariable int planId) {
         return planService.getPlanSession(planId);
+    }
+
+    @PutMapping("/{planId}")
+    public Plan updatePlan(@PathVariable int planId, @RequestBody Plan plan) {
+        return planService.updatePlan(planId, plan);
+    }
+
+    @DeleteMapping("/{planId}")
+    public boolean removePlan(@PathVariable int planId) {
+        return planService.removePlan(planId);
     }
 }
